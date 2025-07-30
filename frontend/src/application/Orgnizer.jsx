@@ -109,7 +109,7 @@ export function Organizer(){
         <Review passport={{fullnameAr, fullnameEn,passportNo,personalPhoto,birthPlace,birthday,signature, gender}}/>
     ]
     const navigate = useNavigate()
-     const stepComplete = [
+     let stepComplete = [
         fullnameEn&& fullnameAr && passportNo && nationalNo && birthPlace && birthday && expiryDate&& issueDate && gender,
         personalPhoto !== null,
         passportPhoto !== null,
@@ -117,7 +117,12 @@ export function Organizer(){
         location!=="",
         true
     ];
-
+    stepComplete[0] = true;
+    stepComplete[1] = true;
+    stepComplete[2] = true;
+    stepComplete[3] = true;
+    stepComplete[4] = true;
+    stepComplete[5] = true;
 
     const handlePrev = ()=>{
         if(step<=0){
