@@ -82,7 +82,7 @@ export const UserDashboard = () => {
               <span className="font-medium">{t('applications')}</span>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          {/* <div className="flex items-center space-x-4">
             <div className="relative">
               <input
                 type="text"
@@ -95,7 +95,7 @@ export const UserDashboard = () => {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -103,7 +103,7 @@ export const UserDashboard = () => {
         {/* Main Content */}
         <div className="flex-1">
           {/* Filter Tabs */}
-          <div className="border-b border-gray-200 bg-white">
+          {/* <div className="border-b border-gray-200 bg-white">
             <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 gap-4">
               <div className="flex space-x-1 overflow-x-auto sm:overflow-visible">
                 {filters.map((filter) => (
@@ -127,7 +127,7 @@ export const UserDashboard = () => {
                 </svg>
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Table Header */}
           <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 border-b border-gray-200">

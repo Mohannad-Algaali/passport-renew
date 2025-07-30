@@ -1,7 +1,32 @@
 import closeIcon from '../assets/cancel_black.svg'
+import { useState } from 'react';
 
 export default function PassportModal({ isOpen, onClose, passportData }){
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   if (!isOpen || !passportData) return null;
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_BACKEND_ROUTE + '/api/del-app', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: passportData._id }),
+      });
+
+      if (response.ok) {
+        onClose();
+        window.location.reload();
+      } else {
+        console.error('Failed to delete application');
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+    }
+  };
+
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -154,8 +179,31 @@ export default function PassportModal({ isOpen, onClose, passportData }){
           </div>
 
           <div className='w-full flex justify-end p-6 sm:p-10 items-center'>
-            <button className='btn btn-error'>Delete</button>
+            <button className='btn btn-error' onClick={() => setIsDeleteModalOpen(true)}>Delete</button>
           </div>
+
+          {isDeleteModalOpen && (
+            <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+              <div className="bg-white rounded-lg p-8 shadow-2xl">
+                <h2 className="text-2xl font-bold mb-4">Confirm Deletion</h2>
+                <p className="mb-6">Are you sure you want to delete this application?</p>
+                <div className="flex justify-end space-x-4">
+                  <button 
+                    className="btn btn-ghost" 
+                    onClick={() => setIsDeleteModalOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    className="btn btn-error" 
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

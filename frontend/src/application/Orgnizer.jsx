@@ -32,6 +32,13 @@ export function Organizer(){
     const [inSudan, setInSudan] = useState('')
     const [step, setStep] = useState(0)
     const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    useEffect(() => {
+        if(isSuccess) {
+            document.getElementById("success-modal").showModal()
+        }
+    }, [isSuccess]);
 
     // Load state from localStorage on component mount
     useEffect(() => {
@@ -165,7 +172,7 @@ export function Organizer(){
         )
         if (response.ok){
             localStorage.removeItem('applicationFormData');
-            document.getElementById("success-modal").showModal()
+            setIsSuccess(true);
         }
 
         }catch(error){
@@ -220,16 +227,13 @@ export function Organizer(){
                             onClick={step === stepList.length - 1 ? handleSubmit : handleNext} >
                             {step === stepList.length - 1 ? t('finish') : t('next')}
                         </button>
-                        <dialog id="success-modal" className="modal">
+                        <dialog id="success-modal" className="modal" onClose={() => navigate('/home')}>
                             <div className="modal-box bg-green-600 text-white" >
                                 <h3 className="font-bold text-lg">{t('applicationSuccessful')}</h3>
                                 <p className="py-4">{t('youCanSeeItInHomePage')}</p>
                             </div>
                             <form method="dialog" className="modal-backdrop">
-                                <button onClick={() => {
-                                    document.getElementById('success-modal').close()
-                                    navigate('/home')
-                                }}>{t('close')}</button>
+                                <button>{t('close')}</button>
                             </form>
                         </dialog>
                     </div>

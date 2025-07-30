@@ -1,7 +1,7 @@
 {
   "welcome": "أهلاً بك",
   "startNewApplication": "بدء طلب جديد",
-  "passportRenewalService": "خدمة تجديد الجوازات",
+  "passportRenewalService": "تجديد",
   "createNewApplication": "إنشاء طلب جديد",
   "areYouSureToExit": "هل أنت متأكد من أنك تريد الخروج؟",
   "exitWarning": "اضغط على مفتاح ESC أو انقر فوق رجوع للإغلاق",
@@ -106,7 +106,7 @@
   "passportNoHeader": "رقم جواز السفر",
   "timeCreated": "وقت الإنشاء",
   "locationHeader": "الموقع",
-  "paymentOutstanding": "المبلغ المستحق",
+  "paymentOutstanding": "المبلغ المطلوب",
   "noApplications": "ليس لديك أي طلبات لعرضها",
   "pressButtonToStart": "اضغط على الزر لبدء طلب جديد",
   "tajdeed": "تجديد",
