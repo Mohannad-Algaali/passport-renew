@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as faceapi from 'face-api.js'
 import { useTranslation } from 'react-i18next';
+<<<<<<< HEAD
 import { 
     getIOSCompatibleConstraints, 
     setupIOSVideoElement, 
@@ -10,6 +11,8 @@ import {
     getCameraAccessTips,
     requestCameraWithFallback
 } from '../../components/image_preprocessing.js';
+=======
+>>>>>>> parent of 4185222 (enhanced camera access handling in PassportPhoto and PersonalPhoto components; added iOS compatibility utilities and error handling in image_preprocessing.js)
 
 export default function PersonalPhoto(props) {
   const { t } = useTranslation();
@@ -276,37 +279,20 @@ export default function PersonalPhoto(props) {
         clearInterval(intervalRef.current);
       }
       
-      // Check if camera is supported
-      if (!checkCameraSupport()) {
-        throw new Error('Camera access not supported in this browser');
-      }
-      
-      // Check HTTPS requirement
-      if (!checkHTTPS()) {
-        setError('Camera access requires HTTPS connection. Please use HTTPS or localhost.');
-        return;
-      }
-      
-      // Get iOS-compatible constraints
-      const constraints = getIOSCompatibleConstraints('user', 3/4);
-      
-      // Request camera with fallback
-      const cameraStream = await requestCameraWithFallback(constraints);
+      // Request camera with preferred resolution
+      const cameraStream = await navigator.mediaDevices.getUserMedia({ 
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: 'user'
+        }
+      });
       setStream(cameraStream);
-      
-      // Setup iOS video element
-      if (videoRef.current) {
-        setupIOSVideoElement(videoRef.current);
-      }
-      
       const videoTrack = cameraStream.getVideoTracks()[0];
       const settings = videoTrack.getSettings();
       setIsFrontCamera(settings.facingMode === 'user');
     } catch (err) {
       console.error('Error accessing camera:', err);
-      const errorMessage = getCameraErrorMessage(err);
-      const tips = getCameraAccessTips();
-      setError(`${errorMessage} ${tips.length > 0 ? `(${tips.join(', ')})` : ''}`);
     }
   };
 
@@ -437,9 +423,6 @@ export default function PersonalPhoto(props) {
             autoPlay 
             muted
             onPlay={handleVideoPlay}
-            playsInline
-            webkit-playsinline="true"
-            x-webkit-airplay="allow"
             className={`${stream && !photo ? ('m-auto '+isFrontCamera?"-scale-x-100":"") : 'hidden'}`}
             style={{
               width:cameraDimensions.width,

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Tesseract from 'tesseract.js'
 import { useTranslation } from 'react-i18next';
+<<<<<<< HEAD
 import { 
     getIOSCompatibleConstraints, 
     setupIOSVideoElement, 
@@ -10,6 +11,8 @@ import {
     getCameraAccessTips,
     requestCameraWithFallback
 } from '../../components/image_preprocessing.js';
+=======
+>>>>>>> parent of 4185222 (enhanced camera access handling in PassportPhoto and PersonalPhoto components; added iOS compatibility utilities and error handling in image_preprocessing.js)
 
 export function PassportPhoto(props) {
     const { t } = useTranslation();
@@ -111,35 +114,17 @@ export function PassportPhoto(props) {
             setPhoto(null);
             setSdnDetected(false);
             setExtractedText("");
-            
-            // Check if camera is supported
-            if (!checkCameraSupport()) {
-                throw new Error('Camera access not supported in this browser');
-            }
-            
-            // Check HTTPS requirement
-            if (!checkHTTPS()) {
-                setError('Camera access requires HTTPS connection. Please use HTTPS or localhost.');
-                return;
-            }
-            
-            // Get iOS-compatible constraints
-            const constraints = getIOSCompatibleConstraints('environment', 4/3);
-            
-            // Request camera with fallback
-            const cameraStream = await requestCameraWithFallback(constraints);
+            // Request camera with preferred resolution
+            const cameraStream = await navigator.mediaDevices.getUserMedia({ 
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    facingMode: { ideal: 'environment' }
+                }
+            });
             setStream(cameraStream);
-            
-            // Setup iOS video element
-            if (videoRef.current) {
-                setupIOSVideoElement(videoRef.current);
-            }
-            
         } catch (err) {
             console.error('Error accessing camera:', err);
-            const errorMessage = getCameraErrorMessage(err);
-            const tips = getCameraAccessTips();
-            setError(`${errorMessage} ${tips.length > 0 ? `(${tips.join(', ')})` : ''}`);
         }
     }  
     
@@ -347,9 +332,6 @@ export function PassportPhoto(props) {
                         autoPlay
                         onPlay={handlePlay}
                         muted
-                        playsInline
-                        webkit-playsinline="true"
-                        x-webkit-airplay="allow"
                         ref={videoRef}
                         style={{
                             width: cameraDimensions.width,
