@@ -179,7 +179,7 @@ export function Signature(props) {
       {!photo && (
         <>
           <div className="text-center mb-2 text-lg font-semibold">
-            {t('strokesLeft', { strokesLeft })}
+            {t('strokesLeft', {strokesLeft})} 
           </div>
           <div className="flex justify-center w-full my-10">
             <canvas

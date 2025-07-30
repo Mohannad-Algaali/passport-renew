@@ -94,7 +94,7 @@ export function PassportPhoto(props) {
         
         // If we have enough edges, likely a document is present
         const edgeRatio = edgeCount / (canvas.width * canvas.height);
-        return edgeRatio < 0.001; // Adjust this threshold as needed
+        return edgeRatio < 0.0001; // Adjust this threshold as needed
     };
 
     const startCamera = async () => {
@@ -316,7 +316,7 @@ export function PassportPhoto(props) {
             {stream && !photo && (
                 <div className='bg-white absolute top-0 left-0  w-full h-dvh flex align-middle justify-center z-10'>
                     <video 
-                        className='my-auto -scale-x-100'
+                        className='my-auto'
                         autoPlay
                         onPlay={handlePlay}
                         muted
@@ -375,12 +375,12 @@ export function PassportPhoto(props) {
                     />
                     
                     {/* Show extracted text for debugging */}
-                    {extractedText && (
+                    {/* {extractedText && (
                         <div className="mt-4 p-4 bg-gray-100 rounded max-w-full overflow-auto">
                             <h4 className="font-bold">Extracted Text:</h4>
                             <pre className="text-xs whitespace-pre-wrap">{extractedText}</pre>
                         </div>
-                    )}
+                    )} */}
                     
                     <div className='flex justify-center gap-10 pt-5'>
                         <button onClick={cancel} className='btn'>{t('remove')}</button>

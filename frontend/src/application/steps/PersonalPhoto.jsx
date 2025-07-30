@@ -105,7 +105,7 @@ export default function PersonalPhoto(props) {
           videoRef.current,
           new faceapi.TinyFaceDetectorOptions({
             inputSize: 416, // Higher resolution for better detection
-            scoreThreshold: 0.3 // Lower threshold to catch more faces
+            scoreThreshold: 0.5 // Lower threshold to catch more faces
           })
         );
         
@@ -215,7 +215,7 @@ export default function PersonalPhoto(props) {
           });
 
           // Update state based on detection results
-          const hasGoodFace = faceScore >= 0.4; // Slightly lower threshold for better UX
+          const hasGoodFace = faceScore >= 0.5; // Slightly lower threshold for better UX
           const hasWhiteBg = whitePixelCount >= 3;
           
           setIsFace(hasGoodFace);

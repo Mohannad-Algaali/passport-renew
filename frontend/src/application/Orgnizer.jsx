@@ -215,7 +215,7 @@ export function Organizer(){
                     <div className="flex w-full justify-around mt-10">
                         <button disabled={step === 0} className={`btn btn-primary ${step === 0 ? 'disabled:btn-ghost' : ''}`} onClick={handlePrev}>{t('previous')}</button>
                         <button
-                            disabled={false} // stepComplete[step]
+                            disabled={!stepComplete[step]} 
                             className="btn btn-primary disabled:btn-ghost"
                             onClick={step === stepList.length - 1 ? handleSubmit : handleNext} >
                             {step === stepList.length - 1 ? t('finish') : t('next')}
