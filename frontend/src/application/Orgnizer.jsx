@@ -220,21 +220,21 @@ export function Organizer(){
                             onClick={step === stepList.length - 1 ? handleSubmit : handleNext} >
                             {step === stepList.length - 1 ? t('finish') : t('next')}
                         </button>
-                        </div>
+                        <dialog id="success-modal" className="modal">
+                            <div className="modal-box bg-green-600 text-white" >
+                                <h3 className="font-bold text-lg">{t('applicationSuccessful')}</h3>
+                                <p className="py-4">{t('youCanSeeItInHomePage')}</p>
+                            </div>
+                            <form method="dialog" className="modal-backdrop">
+                                <button onClick={() => {
+                                    document.getElementById('success-modal').close()
+                                    navigate('/home')
+                                }}>{t('close')}</button>
+                            </form>
+                        </dialog>
+                    </div>
                 </div>
             )}
-            <dialog id="success-modal" className="modal">
-                <div className="modal-box bg-green-600 text-white" >
-                    <h3 className="font-bold text-lg">{t('applicationSuccessful')}</h3>
-                    <p className="py-4">{t('youCanSeeItInHomePage')}</p>
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button onClick={() => {
-                        document.getElementById('success-modal').close()
-                        navigate('/home')
-                    }}>{t('close')}</button>
-                </form>
-            </dialog>
         </div>
     )
 
