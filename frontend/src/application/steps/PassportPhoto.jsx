@@ -1,18 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Tesseract from 'tesseract.js'
 import { useTranslation } from 'react-i18next';
-<<<<<<< HEAD
-import { 
-    getIOSCompatibleConstraints, 
-    setupIOSVideoElement, 
-    getCameraErrorMessage, 
-    checkCameraSupport,
-    checkHTTPS,
-    getCameraAccessTips,
-    requestCameraWithFallback
-} from '../../components/image_preprocessing.js';
-=======
->>>>>>> parent of 4185222 (enhanced camera access handling in PassportPhoto and PersonalPhoto components; added iOS compatibility utilities and error handling in image_preprocessing.js)
 
 export function PassportPhoto(props) {
     const { t } = useTranslation();
