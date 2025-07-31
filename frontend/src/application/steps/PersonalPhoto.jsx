@@ -104,7 +104,7 @@ export default function PersonalPhoto(props) {
         const detections = await faceapi.detectAllFaces(
           videoRef.current,
           new faceapi.TinyFaceDetectorOptions({
-            inputSize: 416, // Higher resolution for better detection
+            inputSize: 320, // Lower resolution for better performance on mobile
             scoreThreshold: 0.5 // Lower threshold to catch more faces
           })
         );
@@ -236,7 +236,7 @@ export default function PersonalPhoto(props) {
         // Don't update state on error to avoid flickering
       }
     }
-  }, 100); // Slightly longer interval to reduce CPU usage
+  }, 500); // Slightly longer interval to reduce CPU usage
 };
 
   // Helper function to draw video to canvas with proper cropping for aspect ratio
@@ -270,8 +270,8 @@ export default function PersonalPhoto(props) {
       // Request camera with preferred resolution
       const cameraStream = await navigator.mediaDevices.getUserMedia({ 
         video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          width: { ideal: 640 },
+          height: { ideal: 480 },
           facingMode: 'user'
         }
       });
@@ -376,7 +376,7 @@ export default function PersonalPhoto(props) {
             <button 
             className='btn btn-primary'
               onClick={takePhoto}
-               disabled={!isFace || !isFaceCentered}
+               disabled={false} //!isFace || !isFaceCentered
             >
               {t('takePhoto')}
             </button>
